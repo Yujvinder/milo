@@ -64,7 +64,7 @@ html[dir="rtl"] .accordion-icon {
 .accordion-icon::before,
 .accordion-icon::after {
   content: "";
-  display: block;
+  display: none;
   position: absolute;
   width: 2px;
   height: 12px;
@@ -84,27 +84,30 @@ html[dir="rtl"] .accordion-icon {
 }
 
 .accordion dt button::before {
-  content: "";
+  content: "\203a";
   display: block;
+  align-content: center;
   position: absolute;
   width: 2px;
-  height: 100%;
+  height: 90%;
+  font-size: 24pt;
   left: 0;
   top: 0;
   background-color: transparent;
 }
 
 .accordion dt button[aria-expanded="true"]::before {
-  background-color: var(--link-color-dark);
+  background-color: var(white);
+  transform: rotate(90deg);
 }
 
 .quiet .accordion dt button[aria-expanded="true"]::before {
-  display: none;
+  display: block;
 }
 
 .accordion dt button[aria-expanded="true"] .accordion-icon::before,
 .accordion dt button[aria-expanded="true"] .accordion-icon::after {
-  transform: rotate(90deg);
+  display: none;
 }
 
 .accordion dt button[aria-expanded="true"] .accordion-icon::after {

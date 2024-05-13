@@ -64,7 +64,7 @@ html[dir="rtl"] .accordion-icon {
 .accordion-icon::before,
 .accordion-icon::after {
   content: "";
-  display: none;
+  display: block;
   position: absolute;
   width: 2px;
   height: 12px;
@@ -83,39 +83,75 @@ html[dir="rtl"] .accordion-icon {
   height: 2px;
 }
 
-.accordion dt button::before {
-  content: "\203a";
+.accordion-icon-down::before
+{
+  content: "";
   display: block;
-  align-content: center;
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--color-gray-600); 
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all .2s ease;
+}
+.accordion-icon-down::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--color-gray-600); 
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(180deg);
+  transition: all .2s ease;
+}
+
+.accordion dt button::before {
+  content: "";
+  display: block;
   position: absolute;
   width: 2px;
-  height: 90%;
-  font-size: 24pt;
+  height: 100%;
   left: 0;
   top: 0;
   background-color: transparent;
 }
 
 .accordion dt button[aria-expanded="true"]::before {
-  background-color: var(white);
-  transform: rotate(90deg);
+  background-color: var(--link-color-dark);
 }
 
 .quiet .accordion dt button[aria-expanded="true"]::before {
-  display: block;
+  display: none;
 }
 
 .accordion dt button[aria-expanded="true"] .accordion-icon::before,
 .accordion dt button[aria-expanded="true"] .accordion-icon::after {
-  display: none;
+  transform: rotate(90deg);
+}
+
+.accordion dt button[aria-expanded="true"] .accordion-icon-down::before {
+  transform: translate(-50%, -50%);
 }
 
 .accordion dt button[aria-expanded="true"] .accordion-icon::after {
   opacity: 0;
 }
 
+.accordion dt button[aria-expanded="true"] .accordion-icon-down::after {
+  opacity: 0;
+}
+.accordion dt button[aria-expanded="false"] .accordion-icon-down::before {
+  opacity: 0;
+}
+
 .accordion dt button:hover .accordion-icon::before,
-.accordion dt button:hover .accordion-icon::after {
+.accordion dt button:hover .accordion-icon::after  {
   background: var(--color-black);
 }
 
@@ -149,8 +185,8 @@ html[dir="rtl"] .accordion-icon {
   background: #00000060;
 }
 
-.dark .accordion dt button:hover .accordion-icon::before,
-.dark .accordion dt button:hover .accordion-icon::after {
+.dark .accordion dt button:hover .accordion-icon::before .accordion-icon-down::before,
+.dark .accordion dt button:hover .accordion-icon::after .accordion-icon-down::after{
   background: var(--color-gray-100);
 }
 

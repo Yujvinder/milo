@@ -69,14 +69,26 @@ function defalutOpen(accordion) {
   handleClick(accordion.querySelector('.accordion-trigger'), accordion.querySelector('dd'), 1, 0);
 }
 
-function createItem(accordion, id, heading, num, edit) {
+function createItem(el,accordion, id, heading, num, edit) {
   const triggerId = `accordion-${id}-trigger-${num}`;
   const panelId = `accordion-${id}-content-${num}`;
   const icon = createTag('span', { class: 'accordion-icon' });
+
+  
+
+  // Check el has class starts with icon
+  if (el.classList) {
+    el.classList.forEach(className => {
+        if (className.startsWith("icon")) {
+            icon.classList.add("accordion-"+className);
+        }
+    });
+  }
+
   const hTag = heading.querySelector('h1, h2, h3, h4, h5, h6');
   const analyticsString = `open-${num}--${processTrackingLabels(heading.textContent)}`;
   const button = createTag('button', {
-    type: 'button',
+    type: 'button', 
     id: triggerId,
     class: 'accordion-trigger tracking-header',
     'aria-expanded': 'false',
@@ -123,7 +135,9 @@ export default function init(el) {
   const accordion = createTag('dl', { class: 'accordion', id: `accordion-${id}`, role: 'presentation' });
   const accordionMedia = createTag('div', { class: 'accordion-media', id: `accordion-media-${id}` });
   const isSeo = el.classList.contains('seo');
+
   const isEditorial = el.classList.contains('editorial');
+
   decorateButtons(el);
 
   if (isEditorial) {
@@ -136,6 +150,7 @@ export default function init(el) {
   const headings = el.querySelectorAll(':scope > div:nth-child(odd)');
   const items = [...headings].map(
     (heading, idx) => createItem(
+      el,
       accordion,
       id,
       heading,
